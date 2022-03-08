@@ -5,8 +5,9 @@ moddataPrefix = "savegame.mod.adjustablefire"
 function saveFileInit()
 	saveVersion = GetInt(moddataPrefix .. "Version")
 	
-	fireSpread = GetInt(moddataPrefix .. "FireSpread", fireSpread)
+	fireSpread = GetInt(moddataPrefix .. "FireSpread")
 	maxFires = GetFloat(moddataPrefix .. "MaxFires")
+	showFireCount = GetBool(moddataPrefix .. "ShowFireCount")
 	
 	loadKeyBinds()
 	
@@ -19,6 +20,14 @@ function saveFileInit()
 		
 		fireSpread = 1
 		SetFloat(moddataPrefix .. "FireSpread", fireSpread)
+	end
+	
+	if saveVersion < 2 or saveVersion == nil then
+		saveVersion = 2
+		SetInt(moddataPrefix .. "Version", saveVersion)
+		
+		showFireCount = false
+		SetBool(moddataPrefix .. "ShowFireCount", showFireCount)
 	end
 end
 
@@ -45,6 +54,7 @@ function saveKeyBinds()
 end
 
 function saveFloatValues()
-	SetInt(moddataPrefix .. "MaxFires", maxFires) --Technically not a float. Oh well
+	SetInt(moddataPrefix .. "MaxFires", maxFires)
 	SetFloat(moddataPrefix .. "FireSpread", fireSpread)
+	SetBool(moddataPrefix .. "ShowFireCount", showFireCount)
 end

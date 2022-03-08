@@ -37,6 +37,28 @@ end
 
 function draw(dt)
 	menu_draw(dt)
+	
+	if showFireCount and GetFireCount() > 0 then
+		UiPush()
+			UiAlign("left top")
+			
+			UiTranslate(UiWidth() * 0.02, UiHeight() * 0.02)
+			
+			UiColor(0, 0, 0, 0.75)
+			
+			UiRect(300, 40)
+			
+			UiTranslate(20, 20)
+			
+			UiFont("regular.ttf", 26)
+			
+			UiAlign("left middle")
+			
+			UiColor(1, 1, 1, 1)
+			
+			UiText("Fire count: " .. GetFireCount())
+		UiPop()
+	end
 end
 
 -- UI Functions (excludes sound specific functions)

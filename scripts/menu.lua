@@ -13,7 +13,7 @@ local erasingBinds = 0
 local erasingValues = 0
 
 local menuWidth = 0.20
-local menuHeight = 0.275
+local menuHeight = 0.325
 
 local fireSpreadBox = nil
 local maxFiresBox = nil
@@ -64,6 +64,8 @@ function drawTitle()
 			UiColorFilter(0, 0, 0, 0.25)
 			UiImageBox("MOD/sprites/square.png", titleBoxWidth + 20, titleBoxHeight + 20, 10, 10)
 		UiPop()
+		
+		UiAlign("center middle")
 		
 		UiText(titleText)
 	UiPop()
@@ -195,6 +197,10 @@ function menu_draw(dt)
 		UiTranslate(0, 50)
 		
 		textboxClass_render(fireSpreadBox)
+		
+		UiTranslate(-150, 50)
+		
+		drawToggle("Show fire count: ", showFireCount, function(i) showFireCount = i end)
 	UiPop()
 	
 	UiPush()
@@ -218,8 +224,8 @@ function setupTextBoxes()
 		textBox01.numbersOnly = true
 		textBox01.limitsActive = true
 		textBox01.numberMin = 0
-		textBox01.numberMax = 5000
-		textBox01.description = "How fast the fire spreads.\nMin: 0\nDefault: 1\nMax: 5000"
+		textBox01.numberMax = 99999999999
+		textBox01.description = "How fast the fire spreads.\nMin: 0\nDefault: 1\nMax: 99999999999"
 		textBox01.onInputFinished = function(v) SetFloat("game.fire.spread", tonumber(v)) fireSpread = tonumber(v) end
 		
 		fireSpreadBox = textBox01
@@ -231,8 +237,8 @@ function setupTextBoxes()
 		textBox02.numbersOnly = true
 		textBox02.limitsActive = true
 		textBox02.numberMin = 0
-		textBox02.numberMax = 5000
-		textBox02.description = "Max amount of fires.\nSetting to 0 doesn't actually disable fires.Min: 0\nDefault: 200\nMax: 5000"
+		textBox02.numberMax = 1215752192
+		textBox02.description = "Max amount of fires.\nSetting to 0 doesn't actually disable fires.\nEngine tries to limit to 1400.\nMin: 0\nDefault: 200\nMax: 1215752192"
 		textBox02.onInputFinished = function(v) SetInt("game.fire.maxcount", tonumber(v)) maxFires = tonumber(v) end
 		
 		maxFiresBox = textBox02
@@ -287,6 +293,7 @@ function resetValues()
 	menuUpdateActions()
 	maxFiresBox.value = 200
 	fireSpreadBox.value = 1
+	showFireCount = false
 	
 	SetInt("game.fire.maxcount", 200)
 	SetFloat("game.fire.spread", 1)
