@@ -13,7 +13,7 @@ local erasingBinds = 0
 local erasingValues = 0
 
 local menuWidth = 0.20
-local menuHeight = 0.325
+local menuHeight = 0.35
 
 local fireSpreadBox = nil
 local maxFiresBox = nil
@@ -291,6 +291,7 @@ end
 
 function resetValues()
 	menuUpdateActions()
+	resetKeybinds()
 	maxFiresBox.value = 200
 	fireSpreadBox.value = 1
 	showFireCount = false
